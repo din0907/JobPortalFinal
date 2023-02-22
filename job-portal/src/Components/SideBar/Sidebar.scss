@@ -1,0 +1,22 @@
+@import "../../Utils/Constants/Color.scss";
+.c-sidebar-container {
+    padding: 50px 0px 50px 30px;
+    background: linear-gradient(180deg, #8072C2 0%, #28204E 100%);
+    color: #FFF;
+    input {
+        margin-right: 30px;
+    }
+    .c-sidebarLable {
+        padding-top: 25px;
+        display: flex;
+        flex-direction: column;
+        li {
+            padding: 14px 0px 14px 15px;
+            &:hover {
+                background: var(--white-color);
+                border-radius: 10px 0px 0px 10px;
+                color: var(--black-color);
+            }
+        }
+    }
+}
