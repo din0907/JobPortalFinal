@@ -1,0 +1,19 @@
+@import "../../Utils/Constants/Color.scss";
+.c-badge {
+    padding: 10px 30px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 19px;
+    font-family: 'Inconsolata';
+    background-color: var(--badge-color);
+    margin-right: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: .3s;
+    &:hover {
+        transform: scale(1.2);
+    }
+}
