@@ -1,67 +1,30 @@
-import logo from './logo.svg';
-import React, { useState } from 'react'
+import React, {useEffect} from 'react'
 import './App.css';
 import Header from './Components/Header/Header';
-import { HeaderJSON,FooterJSON ,SidebarJSON} from './Utils/Constants/constant';
-import Footer from './Components/Footer/Footer';
-import Sidebar from './Components/SideBar/Sidebar';
+import { HeaderJSON} from './Utils/Constants/constant';
+import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom'; 
 import Badge from './Components/Badge/Badge';
+import Register from './Components/Register/Register';
+import Sidebar from './Components/SideBar/Sidebar';
+import {FooterJSON ,SidebarJSON} from './Utils/Constants/constant';
+import Login from './Components/Login/Login';
+import Home from './Components/Home/Home';
+import Logout from './Components/Logout/Logout';
+const router = createBrowserRouter (
+  [
+    {path:'/',  element:<Sidebar sidebar = {SidebarJSON}/>},
+    {path:'/register',  element:<Register/>},
+    {path:'/login',  element:<Login />},
+    {path:'/home',  element:<Home />},
+    {path:'/logout',  element:<Logout />},
+
+  ]
+);
 const App = () => {
-  const onClickHandler = () => {
-    console.log("Dinesh");
-  }
-  const bageJSON = [
-    {
-      title:"Front End Dev",
-    },
-    {
-      title:"Java Dev",
-    },
-    {
-      title:"Full Stack Dev",
-    },
-    {
-      title:"QA",
-    },
-    {
-      title:"Work From Home",
-    },
-    {
-      title:"Remote Job in Home Location",
-    }
-  ]
-
-  const latestJobJSON = [
-      {
-        logo:'',
-        jobTitle:"React Dev",
-        companyName:"Hitachi",
-        location: {
-          logo:'',
-          locationName:'Jaipur'
-        },
-        student: {
-          logo:'',
-          Name:"Dinesh"
-        },
-        jobType:"Full Time",
-        isActive:false
-      }
-
-  ]
   return(
     <>
-      <Header headerData = {HeaderJSON}/>
-      <div className='c-main-content'>
-        <Sidebar  sidebar={SidebarJSON}/>
-        <div className='c-content'>
-      {bageJSON.map((rec,index)=> {
-        return <Badge key = {index} title = {rec.title} className = "c-badge"/>
-      })
-      }
-        </div>
-      </div>
-      <Footer footerData={FooterJSON}/>
+    <Header headerData = {HeaderJSON}/>
+    <RouterProvider router={router}/>
     </>
   )
 }

@@ -1,0 +1,39 @@
+@import "../../Utils/Constants/Color.scss";
+.c-register-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 60%;
+    border: 1px solid var(--black-color);
+    margin-top: 45px;
+    .c-register-inner-container {
+        width: 60%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 33px 0px 60px 0px;
+    }
+    .c-select-profile {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    h3 {
+        padding-bottom: 33px;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 39px;
+    }
+    .c-input-text{
+        margin-bottom: 13px;
+    }
+    label {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 15px;
+        color: var(--black-color);
+    }
+}

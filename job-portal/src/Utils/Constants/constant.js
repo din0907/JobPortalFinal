@@ -203,3 +203,336 @@ export const SidebarJSON = [
             isActive:false
         },
 ];
+export const companyRegisterJSON = [
+    {
+        label:"Name",
+        type:"text",
+        text:"name",
+        isActive:false,
+        isRequired:true,
+        className:"c-input-text",
+        placeHolder:'Please Enter Name',
+        isError:false
+
+    },
+    {
+        label:"User Name",
+        type:"text",
+        text:"userName",
+        isActive:false,
+        isRequired:true,
+        className:"c-input-text",
+        placeHolder:'Please Enter Name',
+        isError:false
+
+    },
+    {
+        label:"Email",
+        type:"email",
+        text:'email',
+        isActive:false,
+        isRequired:true ,
+        className:"c-input-text",
+        placeHolder:'Please Enter Email',
+        isError:false
+
+    },
+    {
+        label:"Password",
+        type:"password",
+        text:'password',
+        isActive:false,
+        isRequired:true ,
+        className:"c-input-text",
+        placeHolder:'Please Enter Password',
+        isError:false
+
+    },
+    {
+        label:"Mobile No",
+        type:"number",
+        isActive:false,
+        isRequired:true,
+        text:'mobileNumber',
+        className:"c-input-text",
+        placeHolder:'Please Enter Mobile No',
+        isError:false 
+
+    },
+    {
+        label:"Address",
+        type:"text",
+        isActive:false,
+        text:'address',
+        isRequired:false,
+        className:"c-input-text",
+        placeHolder:'Please Enter Address',
+        isError:false
+
+    },
+    {
+        label:"City",
+        type:"dropDown",
+        isActive:false,
+        text:'cityId',
+        isRequired:false,
+        className:"c-input-text",
+        placeHolder:'Please Enter City',
+        isError:false
+
+    },
+    {
+        label:"District",
+        type:"dropDown",
+        isActive:false,
+        text:'districtId',
+        isRequired:false,
+        className:"c-dropdown",
+        isError:false
+
+    },
+    {
+        label:"State",
+        type:"dropDown",
+        isActive:false,
+        text:'stateId',
+        isRequired:false,
+        className:"c-dropdown",
+        isError:false
+
+    },
+    
+    {
+        label:"PinCode",
+        type:"text",
+        isActive:false,
+        isRequired:false,
+        text:'pinCode',
+        className:"c-input-text",
+        placeHolder:'Please Enter PinCode',
+        isError:false
+
+    },
+    {
+        label:"PanCard No",
+        type:"text",
+        isActive:false,
+        isRequired:false,
+        text:'panCardNumber',
+        className:"c-input-text",
+        placeHolder:'Please Enter PanCard No',
+        isError:false
+
+    },
+    {
+        label:"Business Location",
+        type:"text",
+        isActive:false,
+        isRequired:false,
+        text:'businessLocation',
+        className:"c-input-text",
+        placeHolder:'Please Enter Business Location',
+        isError:false
+
+    },
+    {
+        label:"GST No",
+        type:"text",
+        isActive:false,
+        isRequired:false,
+        text:'gstNumber',
+        className:"c-input-text",
+        placeHolder:'Please Enter GST No',
+        isError:false
+
+    },
+    {
+        label:"Logo",
+        type:"file",
+        isActive:false,
+        isRequired:false,
+        text:'logo',
+        className:"c-input-text",
+        isError:false
+
+    }
+]
+
+export const candidateRegisterJSON = [
+    {
+        label:"Upload Resume (*.doc, *.docx, *.rtf, *.txt, *.pdf) 6 MB max",
+        type:"file",
+        isActive:false,
+        isRequired:true,
+        text:'resume',
+        className:"c-input-text",
+        placeHolder:'Please Upload Resume',
+        isError:false
+
+    },{
+        label:"Full Name",
+        type:"text",
+        isActive:false,
+        text:'name',
+        isRequired:true,
+        className:"c-input-text",
+        placeHolder:'Please Enter Full Name',
+        isError:false
+
+    },
+    {
+        label:"User Name",
+        type:"text",
+        isActive:false,
+        text:'userName',
+        isRequired:true,
+        className:"c-input-text",
+        placeHolder:'Please Enter Full Name',
+        isError:false
+
+    },
+    {
+        label:"Email",
+        type:"email",
+        text:'email',
+        isActive:false,
+        isRequired:true ,
+        className:"c-input-text",
+        placeHolder:'Please Enter Email',
+        isError:false
+
+    },
+    {
+        label:"Password",
+        type:"password",
+        text:'password',
+        isActive:false,
+        isRequired:true ,
+        className:"c-input-text",
+        placeHolder:'Please Enter Password',
+        isError:false
+
+    },
+    {
+        label:"Mobile No",
+        type:"number",
+        text:'mobileNumber',
+        isActive:false,
+        isRequired:true,
+        className:"c-input-text",
+        placeHolder:'Please Enter Mobile No' ,
+        isError:false
+
+    },
+    {
+        label:"Current Location",
+        type:"text",
+        isActive:false,
+        isRequired:false,
+        text:'location',
+        className:"c-input-text",
+        placeHolder:'Please Enter Current Location',
+        isError:false
+
+    },
+    {
+        label:"Total Experience",
+        type:"text",
+        isActive:false,
+        text:'exp',
+        isRequired:false,
+        className:"c-input-text",
+        placeHolder:'Please Enter Total Experience ',
+        isError:false
+
+    },
+    {
+        label:"Key Skills",
+        type:"text",
+        isActive:false,
+        text:'skillSet',
+        isRequired:false,
+        className:"c-input-text",
+        placeHolder:'Please Enter Key Skills',
+        isError:false
+
+    }
+]
+export  const companyInitialValues = {
+    address: "",
+    businessLocation: "",
+    cityId: 0,
+    districtId: 0,
+    email: "",
+    gstNumber:"",
+    logo: "",
+    mobileNumber: "",
+    name: "",
+    panCardNumber: "",
+    password: "",
+    pinCode:"",
+    stateId:0,
+    userName:"",
+};
+export  const candidateInitialStateValues = {
+  address: "",
+  cityId: 0,
+  client: "",
+  companyName: "",
+  course: "",
+  courseDuration: "",
+  courseType: "",
+  createdOn: "2023-03-02",
+  ctc: "",
+  current: true,
+  currentCtc: "",
+  dateOfBirth: "",
+  description: "",
+  designation: "",
+  districtId: 0,
+  education: "",
+  email: "",
+  employmentType: "",
+  endDate: "",
+  expectedCtc: "",
+  gradingSystem: "",
+  jobProfile: "",
+  joingDate: "",
+  language: "",
+  level: "",
+  location: "",
+  marks: 0,
+  mobileNumber: "",
+  modifiedOn: "",
+  name: "",
+  natureOfEmployement: "",
+  noticePeriod: "",
+  panCard: "",
+  password: "",
+  pinCode: 0,
+  projectEndDate: "",
+  projectStartDate: "",
+  projectStatus: true,
+  read: true,
+  resume: "",
+  role: "",
+  roleDescription: "",
+  skillSet: "",
+  speak: true,
+  specialization: "",
+  stateId: 0,
+  status: true,
+  teamSize: 0,
+  title: "",
+  university: "",
+  userName:"",
+  write: true
+};
+
+
+export const stateUrl = "https://appts.in/jobportal/state/all";
+export const districtUrl  = "https://appts.in/jobportal/district/by?stateId=";
+export const cityUrl = "https://appts.in/jobportal/city/by?districtId=";
+export const companyRegisterUrl = "https://appts.in/jobportal/company/register";
+export const candidateRegisterUrl = "https://appts.in/jobportal/candidate/registeration";
+export const loginUrl = "https://appts.in/jobportal/auth/signin";

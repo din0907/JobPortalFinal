@@ -1,5 +1,8 @@
 import  "./Badge.scss";
 const Badge = (props) => {
+    const registerInfo =  useSelector(state => state.registerInfo);
+
+    console.log(registerInfo);
     const {
         className,
         title
