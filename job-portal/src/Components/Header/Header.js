@@ -4,7 +4,7 @@ import {Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_LOGIN_INFO } from "../../Store/ActionType";
 const Header = (props) => {
-    const loginInfo = useSelector(state => state.loginInfo)
+    const loginInfo = useSelector(state => state.loginInfo);
    const dispatch = useDispatch();
 const {
     headerData

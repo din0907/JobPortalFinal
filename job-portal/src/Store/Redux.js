@@ -1,12 +1,16 @@
 import{configureStore} from '@reduxjs/toolkit'
 import { UPDATE_REGISTER_INFO,
     UPDATE_PROFILE_NAME,
-    UPDATE_LOGIN_INFO
+    UPDATE_LOGIN_INFO,
+    UPDATE_SHOW_MODAL_WINDOW
 } from './ActionType';
 const initialState = {
     registerInfo: {},
     profileName:'candidate',
-    loginInfo:{}
+    loginInfo:{
+        
+    },
+    showModal:false,
 }
 
 const jobportalReducer = (state = initialState,action) => {
@@ -27,6 +31,12 @@ const jobportalReducer = (state = initialState,action) => {
             return {
                 ...state,
                 loginInfo:action.payload
+            }
+        }
+        case UPDATE_SHOW_MODAL_WINDOW: {
+            return {
+                ...state,
+                showModal:action.payload
             }
         }
         default: {

@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from "react";
 import { useSelector, connect, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { UPDATE_REGISTER_INFO,UPDATE_PROFILE_NAME } from '../../Store/ActionType';
+import { UPDATE_REGISTER_INFO,UPDATE_PROFILE_NAME,UPDATE_SHOW_MODAL_WINDOW} from '../../Store/ActionType';
 import "./Register.scss";
 import "../../Utils/CommonComponents/DropDown.scss";
 import { companyInitialValues, 
@@ -12,10 +12,12 @@ import { companyInitialValues,
         districtUrl,
         cityUrl,
         companyRegisterUrl,
-        candidateRegisterUrl
+        candidateRegisterUrl,
+        otpModalJSON
  } from "../../Utils/Constants/constant";
 import Input from "../../Utils/CommonComponents/Input";
 import Button from '../../Utils/CommonComponents/Button';
+import ModalWindow from "../../Utils/CommonComponents/ModalWindow";
 const Register = (props) => {
    const navigation = useNavigate();
    const[companyValues,setCompanyValues] = useState(companyInitialValues);
@@ -26,6 +28,8 @@ const Register = (props) => {
    const profile = useSelector(state => state.profileName);
    const dispatch = useDispatch();
    const[isBtnDisable, setIsBtnDisable] = useState(true);
+   const showModal = useSelector(state => state.showModal);
+   const [otpId, setOtpId] = useState('');
    useEffect(() => {
     fetchStateData();
 },[])
@@ -142,18 +146,54 @@ const fetchCityData = async (Id) => {
         }
     }
    }
-   const onChangeInputHandler = (value,label) => {
-   
+   const fileToDataUri = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      resolve(event.target.result)
+    };
+    reader.readAsDataURL(file);
+    })
+   const onChangeInputHandler = (value,label,type) => {
     if(profile === 'candidate') {
-        setCandidateValues({
-            ...candidateValues,
-            [label]: value,
-        });
+        if(type === 'file') {
+            let file = value.target.files[0];
+            if(!file) {
+                return;
+              }
+              fileToDataUri(file)
+                .then(dataUri => {
+                    setCandidateValues({
+                        ...candidateValues,
+                        [label]: dataUri,
+                    });
+                })
+           } else {
+            setCandidateValues({
+                ...candidateValues,
+                [label]: value,
+            });
+           }
+        
     } else if (profile === 'company') {
-        setCompanyValues({
-            ...companyValues,
-            [label]: value,
-        });
+        if(type === 'file') {
+            let file = value.target.files[0];
+            if(!file) {
+                return;
+              }
+              fileToDataUri(file)
+                .then(dataUri => {
+                    setCompanyValues({
+                        ...companyValues,
+                        [label]: dataUri,
+                    });
+                })
+           } else {
+            setCompanyValues({
+                ...companyValues,
+                [label]: value,
+            });
+           }
+       
     }
     }
     const registerHandler = async() => {
@@ -165,6 +205,7 @@ const fetchCityData = async (Id) => {
             };
             const response = await fetch(companyRegisterUrl, requestOptions);
             const data = await response.json();
+            setOtpId(data.otpId);
            dispatch({type:UPDATE_REGISTER_INFO, payload:data});
            //setCompanyValues(companyInitialValues);
         } else {
@@ -176,6 +217,7 @@ const fetchCityData = async (Id) => {
             const response = await fetch(candidateRegisterUrl, requestOptions);
             try {
                 const data = await response.json();
+                setOtpId(data.otpId);
                 dispatch({type:UPDATE_REGISTER_INFO, payload:data});
                 setCandidateValues(candidateInitialStateValues);
             } catch(error) {
@@ -184,7 +226,8 @@ const fetchCityData = async (Id) => {
            
         }
 
-        navigation('/login')
+        dispatch({type:UPDATE_SHOW_MODAL_WINDOW, payload:true});
+       /*  navigation('/login') */
 
        
     }
@@ -221,14 +264,14 @@ const fetchCityData = async (Id) => {
                         return <>
                             <label>{rec.label} {rec.isRequired && <span>*</span>}</label>
                             <select className = "c-drop-down" onChange = {dropDownChangeHandler} name = {rec.text}>
-                                {stateJSON.map(({ stateName, id }, index) => <option value={id} >{stateName}</option>)}
+                                {stateJSON.map(({ stateName, id }, index) => <option value={id} key = {id} >{stateName}</option>)}
                             </select>
                         </>
                     } else if(rec.label == 'District' && rec.type == 'dropDown') {
                         return <>
                         <label>{rec.label} {rec.isRequired && <span>*</span>}</label>
                         <select className = "c-drop-down" onChange = {dropDownChangeHandler} name = {rec.text}>
-                                {DistrictJSON.map(({ districtName, id }, index) => <option value={id} >{districtName}</option>)}
+                                {DistrictJSON.map(({ districtName, id }, index) => <option value={id} key = {id}>{districtName}</option>)}
                         </select>
                     </>
                     }
@@ -236,7 +279,7 @@ const fetchCityData = async (Id) => {
                         return <>
                         <label>{rec.label} {rec.isRequired && <span>*</span>}</label>
                         <select className = "c-drop-down" onChange = {dropDownChangeHandler} name = {rec.text}>
-                                {cityJSON.map(({ cityName, id }, index) => <option value={id} >{cityName}</option>)}
+                                {cityJSON.map(({ cityName, id }, index) => <option value={id} key = {id}>{cityName}</option>)}
                         </select>
                     </>
                     }
@@ -256,6 +299,7 @@ const fetchCityData = async (Id) => {
                 </>}
                 <Button disabled = {isBtnDisable} className = "c-btn c-primary" title ="Register" BtnClickHandler = {registerHandler}/>
             </div>
+            {showModal && <ModalWindow otpId = {otpId} otpModalJSON = {otpModalJSON}/>}
         </div>
     )
 }

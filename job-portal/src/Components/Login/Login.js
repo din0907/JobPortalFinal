@@ -15,7 +15,7 @@ const Login = (props) => {
         password:''
     };
     const[loginState,setLoginState] = useState(initialLocalState);
-
+    const[isBtnDisable, setIsBtnDisable] = useState(true);
     const onChangeInputHandler = (value,label) => {
         setLoginState({
             ...loginState,
@@ -42,6 +42,13 @@ const Login = (props) => {
         }
         
     }
+    const onBlurInputHandler = (isError,label,isRequired) => {
+        if(!loginState.username || !loginState.password) {
+            setIsBtnDisable(true)
+        } else {
+            setIsBtnDisable(false);
+        }
+    }
     return (
         <div className="c-login-container">
             <div className="c-image-container">
@@ -50,15 +57,15 @@ const Login = (props) => {
             <div className="c-login-inner-container">
                 <div>
                     <label>User Name <span>*</span></label>
-                    <Input  message = 'User Name'  label = 'username' type="text" className="c-input-text" placeholder="Please Enter User Name"
+                    <Input  message = 'User Name' onBlurInputHandler = {onBlurInputHandler}  label = 'username' type="text" className="c-input-text" placeholder="Please Enter User Name"
                     isActive= 'false' isRequired= "true" onChangeInputHandler = {onChangeInputHandler}/>
                 </div>
                 <div>
                     <label>Password <span>*</span></label>
-                    <Input message = 'Password'  label = 'password' type="password" className="c-input-text" placeholder="Please Enter password"
+                    <Input message = 'Password' onBlurInputHandler = {onBlurInputHandler}  label = 'password' type="password" className="c-input-text" placeholder="Please Enter password"
                     isActive= 'false' isRequired= "true" onChangeInputHandler = {onChangeInputHandler}/>
                 </div>
-                <Button className = "c-btn c-primary" title ="Register" BtnClickHandler = {loginHandler}/>
+                <Button disabled = {isBtnDisable} className = "c-btn c-primary" title ="Login" BtnClickHandler = {loginHandler}/>
             </div>
         </div>
     )

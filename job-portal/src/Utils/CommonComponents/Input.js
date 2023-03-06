@@ -19,10 +19,13 @@ const Input = (props) => {
             let maxLength = 10;
             let newValue = val < maxLength ? val : parseInt(val.toString().substring(0, maxLength));
             setInputValue(newValue);
-            props.onChangeInputHandler(newValue,label);
+            props.onChangeInputHandler(newValue,label,type);
+        } else if(type === 'file') {
+            setInputValue(event.target.value);
+            props.onChangeInputHandler(event,label,type);
         } else {
             setInputValue(event.target.value);
-            props.onChangeInputHandler(event.target.value,label);
+            props.onChangeInputHandler(event.target.value,label,type);
         }
     }
     const blurHandler = (event) => {
@@ -45,9 +48,9 @@ const Input = (props) => {
             }
         }
         if(isError) {
-            props.onBlurInputHandler(true,label,isRequired);
+            props?.onBlurInputHandler(true,label,isRequired);
         } else {
-            props.onBlurInputHandler(false,label,isRequired);
+            props?.onBlurInputHandler(false,label,isRequired);
         }
        
       
@@ -57,7 +60,7 @@ const Input = (props) => {
         <>
         {isError && <span className="error-text">{message} is Required</span>}
         {isEmailValid && <span className="error-text">Email is not Valid</span>}
-        <input type={type} disabled = {isActive} onBlur = {blurHandler} placeholder = {placeholder} className = {isError || isEmailValid ? className + ' ' + "error " : className} value = {inputValue} onChange = {onChangeHandler}/>
+        <input type={type}  onBlur = {blurHandler} placeholder = {placeholder} className = {isError || isEmailValid ? className + ' ' + "error " : className} value = {inputValue} onChange = {onChangeHandler}/>
         </>
     )
 }

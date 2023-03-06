@@ -529,6 +529,19 @@ export  const candidateInitialStateValues = {
   write: true
 };
 
+export const otpModalJSON = [
+    {
+        label:"OTP",
+        type:"text",
+        isActive:false,
+        isRequired:true,
+        text:'otp',
+        className:"c-input-text",
+        placeHolder:'Please Enter otp',
+        isError:false
+
+    }
+]
 
 export const stateUrl = "https://appts.in/jobportal/state/all";
 export const districtUrl  = "https://appts.in/jobportal/district/by?stateId=";
@@ -536,3 +549,5 @@ export const cityUrl = "https://appts.in/jobportal/city/by?districtId=";
 export const companyRegisterUrl = "https://appts.in/jobportal/company/register";
 export const candidateRegisterUrl = "https://appts.in/jobportal/candidate/registeration";
 export const loginUrl = "https://appts.in/jobportal/auth/signin";
+export const companyOTP = "https://appts.in/jobportal/company/enterotp";
+export const candidateOtp = "https://appts.in/jobportal/candidate/enterotp";
