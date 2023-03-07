@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Input.scss";
 const Input = (props) => {
     const {
@@ -8,11 +8,12 @@ const Input = (props) => {
         label,
         isActive,
         isRequired,
-        message
+        message,
+        isError
     } = props;
     const[inputValue,setInputValue] = useState('');
-    const[isError,setIsError] = useState(false)
-    const[isEmailValid,setEmailValid] = useState(false)
+    const[isErrorUpdated,setIsErrorUpdated] = useState(isError)
+    const[isEmailValid,setEmailValid] = useState(isError)
     const onChangeHandler = (event) => {
         if(type === 'number') {
             let val = event.target.value
@@ -32,10 +33,10 @@ const Input = (props) => {
         let isError = false;
         if(isRequired) {
             if(inputValue == '') {
-                setIsError(true);
+                setIsErrorUpdated(true);
                isError = true;
             } else {
-                setIsError(false);
+                setIsErrorUpdated(false);
             }
         }
         if(label === 'email') {
@@ -58,7 +59,7 @@ const Input = (props) => {
 
     return (
         <>
-        {isError && <span className="error-text">{message} is Required</span>}
+        {isErrorUpdated && <span className="error-text">{message} is Required</span>}
         {isEmailValid && <span className="error-text">Email is not Valid</span>}
         <input type={type}  onBlur = {blurHandler} placeholder = {placeholder} className = {isError || isEmailValid ? className + ' ' + "error " : className} value = {inputValue} onChange = {onChangeHandler}/>
         </>

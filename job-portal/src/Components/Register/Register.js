@@ -1,16 +1,14 @@
 import React, {useEffect,useState} from "react";
-import { useSelector, connect, useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useSelector,  useDispatch } from 'react-redux';
+import {useLoaderData } from "react-router-dom";
 import { UPDATE_REGISTER_INFO,UPDATE_PROFILE_NAME,UPDATE_SHOW_MODAL_WINDOW} from '../../Store/ActionType';
+import {useToasts } from 'react-toast-notifications';
 import "./Register.scss";
 import "../../Utils/CommonComponents/DropDown.scss";
 import { companyInitialValues, 
         candidateInitialStateValues,
         companyRegisterJSON,
         candidateRegisterJSON,
-        stateUrl,
-        districtUrl,
-        cityUrl,
         companyRegisterUrl,
         candidateRegisterUrl,
         otpModalJSON
@@ -18,65 +16,29 @@ import { companyInitialValues,
 import Input from "../../Utils/CommonComponents/Input";
 import Button from '../../Utils/CommonComponents/Button';
 import ModalWindow from "../../Utils/CommonComponents/ModalWindow";
+import { featchDistrictData, featchCityData } from "../../Utils/Constants/DataLoader";
 const Register = (props) => {
-   const navigation = useNavigate();
+   const locationData = useLoaderData();
+   const { addToast } = useToasts();
+   const [stateJSON,setStateJSON] = useState(locationData.stateData);
+   const [DistrictJSON,setDistrictJSON] = useState(locationData.districtData);
+   const [cityJSON,setcityJSON] = useState(locationData.cityData);
+    useEffect (() => {
+        setCompanyValues({
+            ...companyValues,
+            stateId:stateJSON[0].id,
+            districtId:DistrictJSON[0].id,
+            cityId:cityJSON[0].id
+        });
+    }, [locationData])
    const[companyValues,setCompanyValues] = useState(companyInitialValues);
    const[candidateValues,setCandidateValues] = useState(candidateInitialStateValues);
-   const [stateJSON,setStateJSON] = useState([]);
-   const [DistrictJSON,setDistrictJSON] = useState([]);
-   const [cityJSON,setcityJSON] = useState([]);
+   
    const profile = useSelector(state => state.profileName);
    const dispatch = useDispatch();
    const[isBtnDisable, setIsBtnDisable] = useState(true);
    const showModal = useSelector(state => state.showModal);
    const [otpId, setOtpId] = useState('');
-   useEffect(() => {
-    fetchStateData();
-},[])
-const fetchStateData = async () => {
-    try {
-      const response = await fetch(stateUrl);
-      const data = await response.json();
-     /*  setCompanyValues({
-        ...companyValues,
-        'stateId': data[0].id,
-    }); */
-     setStateJSON(data);
-     fetchDistrictData(data[0].id,true);
-    } catch (error) {
-      console.log("error", error);
-    }
-};
-
-const fetchDistrictData = async (Id) => {
-    const url = districtUrl+Id;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-       /*  setCompanyValues({
-            ...companyValues,
-            'districtId': data[0].id,
-        }); */
-        setDistrictJSON(data);
-        fetchCityData(data[0].id);
-    } catch (error) {
-        console.log("error", error);
-    }
-};
-const fetchCityData = async (Id) => {
-    const url = cityUrl+Id;
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      setcityJSON(data);
-     /*  setCompanyValues({
-        ...companyValues,
-        'cityId': data[0].id,
-    }); */
-  } catch (error) {
-      console.log("error", error);
-    }
-  };
    const onchangeRadioHandler = (event) => {
         dispatch({type:UPDATE_PROFILE_NAME, payload:event.target.value})
    }
@@ -197,52 +159,57 @@ const fetchCityData = async (Id) => {
     }
     }
     const registerHandler = async() => {
+        let url = ''
+        let jsonValue = ''
         if(profile === 'company') {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(companyValues)
-            };
-            const response = await fetch(companyRegisterUrl, requestOptions);
-            const data = await response.json();
-            setOtpId(data.otpId);
-           dispatch({type:UPDATE_REGISTER_INFO, payload:data});
-           //setCompanyValues(companyInitialValues);
+            url = companyRegisterUrl;
+            jsonValue = companyValues;
         } else {
+            url = candidateRegisterUrl;
+            jsonValue = candidateValues;
+        }
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(candidateValues)
+                body: JSON.stringify(jsonValue)
             };
-            const response = await fetch(candidateRegisterUrl, requestOptions);
-            try {
+                const response = await fetch(url, requestOptions);
                 const data = await response.json();
-                setOtpId(data.otpId);
-                dispatch({type:UPDATE_REGISTER_INFO, payload:data});
-                setCandidateValues(candidateInitialStateValues);
-            } catch(error) {
-                console.log(error);
-            }
-           
-        }
-
-        dispatch({type:UPDATE_SHOW_MODAL_WINDOW, payload:true});
-       /*  navigation('/login') */
-
-       
+                if (response.status === 200) {
+                    setOtpId(data.otpId);
+                    dispatch({type:UPDATE_REGISTER_INFO, payload:data});
+                    dispatch({type:UPDATE_SHOW_MODAL_WINDOW, payload:true});
+                    {profile == 'company' ?  setCompanyValues(companyInitialValues) : setCandidateValues(candidateInitialStateValues)}
+                } else {
+                    addToast(data.message, { appearance: 'error'});
+                }
     }
-    const dropDownChangeHandler = (event) => {
+    const dropDownChangeHandler = async (event) => {
         const {name,value} = event.target;
         if(name === 'stateId') {
-        fetchDistrictData(value);
+            const updatedDistrictData = await featchDistrictData(value);
+            setDistrictJSON(updatedDistrictData);
+            const updatedCityData = await featchCityData(updatedDistrictData[0].id);
+            setcityJSON(updatedCityData);
+            setCompanyValues({
+                ...companyValues,
+                [name]: parseInt(value),
+                cityId:updatedCityData[0].id
+            });
         } else if(name === 'districtId') {
-            fetchCityData(value);
+            const updatedCityData = await featchCityData(value);
+            setcityJSON(updatedCityData);
+            setCompanyValues({
+                ...companyValues,
+                [name]: parseInt(value),
+            });
         }
-        setCompanyValues({
-            ...companyValues,
-            [name]: value,
-        });
-
+        else if(name === 'cityId') {
+            setCompanyValues({
+                ...companyValues,
+                [name]: parseInt(value),
+            });
+        }
     }
     return (
         <div className="c-register-container">

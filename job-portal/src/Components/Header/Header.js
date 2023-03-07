@@ -1,6 +1,6 @@
 import Button from "../../Utils/CommonComponents/Button";
 import "./Header.scss";
-import {Link } from "react-router-dom";
+import {Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_LOGIN_INFO } from "../../Store/ActionType";
 const Header = (props) => {
@@ -23,6 +23,7 @@ const logOutHandler = () => {
     dispatch({type:UPDATE_LOGIN_INFO, payload : {}})
 }
 return (
+    <>
     <header className="c-header">
         <section className="c-logo">
             <h3 className="c-title">
@@ -43,6 +44,8 @@ return (
             <a href="/register"><Button title="Register" className="c-btn c-secondary" BtnClickHandler = {registerHandler}/></a>
         </section>
     </header>
+    <Outlet/>
+    </>
 )
 }
 

@@ -551,3 +551,4 @@ export const candidateRegisterUrl = "https://appts.in/jobportal/candidate/regist
 export const loginUrl = "https://appts.in/jobportal/auth/signin";
 export const companyOTP = "https://appts.in/jobportal/company/enterotp";
 export const candidateOtp = "https://appts.in/jobportal/candidate/enterotp";
+export const searchUrl = "https://appts.in/jobportal/job/search";
