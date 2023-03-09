@@ -1,0 +1,59 @@
+@import "../../Utils/Constants/Color.scss";
+.c-home-container {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    flex-direction: column;
+    .c-job-search-container{
+        display: flex;
+        margin: 0 auto;
+    }
+    input, button {
+        margin: 20px;
+    }
+    .c-job-list-contatiner{
+        display: flex;
+        margin: 16px 25px;
+        border: 1px solid var(--black-color);
+        padding: 16px 20px;
+        .c-job-filter{
+            flex: 1;
+            background: var(--white-color);
+            border: 1px solid var(--black-color);
+            box-shadow: 4px 4px 4px 4px rgb(0 0 0 / 25%);
+            border-radius: 10px;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            .c-filter-wrapper {
+                flex: 1;
+                .c-all-job-filter, section {
+                    padding: 18px 18px 18px 37px;
+                    border-bottom: 2px solid #3B3B3B;
+                    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+                }
+                section {
+                    li {
+                        padding: 15px 0px;
+                        input {
+                            margin: 0;
+                        }
+                        label {
+                            margin-left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+        .c-job-list {
+            flex: 1;
+            section {
+                background: var(--white-color);
+                margin-bottom: 18px;
+                border: 1px solid var(--card-border-color);
+                box-shadow: 4px 4px 4px 4px rgb(0 0 0 / 25%);
+                padding: 16px 35px;
+            }
+        }
+    }
+}

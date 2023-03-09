@@ -14,3 +14,7 @@ code {
 .c-login-layout-container{
   display: flex;
 }
+.c-login-layout-container main {
+  display: flex;
+  flex: 1;
+}

@@ -542,7 +542,74 @@ export const otpModalJSON = [
 
     }
 ]
+export const Workmode = [
+        {
+            title:'Work from office',
+            totalJob:317
 
+        },
+        {
+            title:'Hybrid',
+            totalJob:6
+
+        },
+        {
+            title:'Temp. WFH due to covid',
+            totalJob:3
+
+        },
+        {
+            title:'Permanent Remote / WFH',
+            totalJob:3
+
+        },
+    ]
+    export const  Department = [
+        {
+            title:'Engineering - Software & QA',
+            totalJob:224
+
+        },
+        {
+            title:'Research & Development',
+            totalJob:34
+
+        },
+        {
+            title:'IT & Information Security',
+            totalJob:3
+
+        },
+        {
+            title:'Others',
+            totalJob:11
+
+        },
+    ]
+    export const Salary = [
+        {
+            title:'0-3 Lakhs',
+            totalJob:11
+        },
+        {
+            title:'3-6 Lakhs',
+            totalJob:113
+        },
+        {
+            title:'6-9 Lakhs',
+            totalJob:12
+        },
+        {
+            title:'9-15 Lakhs',
+            totalJob:13
+        },
+    ]
+
+    export const  jobFilterJSON = {
+        Workmode,
+        Department,
+        Salary
+}
 export const stateUrl = "https://appts.in/jobportal/state/all";
 export const districtUrl  = "https://appts.in/jobportal/district/by?stateId=";
 export const cityUrl = "https://appts.in/jobportal/city/by?districtId=";
@@ -552,3 +619,13 @@ export const loginUrl = "https://appts.in/jobportal/auth/signin";
 export const companyOTP = "https://appts.in/jobportal/company/enterotp";
 export const candidateOtp = "https://appts.in/jobportal/candidate/enterotp";
 export const searchUrl = "https://appts.in/jobportal/job/search";
+
+/* export const stateUrl = "http://localhost:8081/state/all";
+export const districtUrl  = "http://localhost:8081/district/by?stateId=";
+export const cityUrl = "http://localhost:8081/city/by?districtId=";
+export const companyRegisterUrl = "http://localhost:8081/company/register";
+export const candidateRegisterUrl = "http://localhost:8081/candidate/registeration";
+export const loginUrl = "http://localhost:8081/auth/signin";
+export const companyOTP = "http://localhost:8081/company/enterotp";
+export const candidateOtp = "http://localhost:8081/candidate/enterotp";
+export const searchUrl = "http://localhost:8081/job/search"; */

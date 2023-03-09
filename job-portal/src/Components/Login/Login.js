@@ -35,7 +35,7 @@ const Login = (props) => {
             localStorage.setItem("userId", data.id);
             localStorage.setItem("username", data.username);
             localStorage.setItem("role",data.roles[0]);
-            dispatch({type:UPDATE_LOGIN_INFO, payload:data});
+            dispatch({type:UPDATE_LOGIN_INFO, payload:data.token});
             navigation('/home')
         } catch (error) {
             console.log(error);

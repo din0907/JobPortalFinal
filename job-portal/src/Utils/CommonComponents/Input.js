@@ -9,11 +9,11 @@ const Input = (props) => {
         isActive,
         isRequired,
         message,
-        isError
+        value
     } = props;
-    const[inputValue,setInputValue] = useState('');
-    const[isErrorUpdated,setIsErrorUpdated] = useState(isError)
-    const[isEmailValid,setEmailValid] = useState(isError)
+    const[inputValue,setInputValue] = useState(value ? value : '');
+    const[isError,setIsError] = useState(false)
+    const[isEmailValid,setEmailValid] = useState(false)
     const onChangeHandler = (event) => {
         if(type === 'number') {
             let val = event.target.value
@@ -33,10 +33,10 @@ const Input = (props) => {
         let isError = false;
         if(isRequired) {
             if(inputValue == '') {
-                setIsErrorUpdated(true);
+                setIsError(true);
                isError = true;
             } else {
-                setIsErrorUpdated(false);
+                setIsError(false);
             }
         }
         if(label === 'email') {
@@ -59,7 +59,7 @@ const Input = (props) => {
 
     return (
         <>
-        {isErrorUpdated && <span className="error-text">{message} is Required</span>}
+        {isError && <span className="error-text">{message} is Required</span>}
         {isEmailValid && <span className="error-text">Email is not Valid</span>}
         <input type={type}  onBlur = {blurHandler} placeholder = {placeholder} className = {isError || isEmailValid ? className + ' ' + "error " : className} value = {inputValue} onChange = {onChangeHandler}/>
         </>

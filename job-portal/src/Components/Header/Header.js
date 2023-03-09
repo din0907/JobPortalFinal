@@ -4,11 +4,17 @@ import {Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_LOGIN_INFO } from "../../Store/ActionType";
 const Header = (props) => {
-    const loginInfo = useSelector(state => state.loginInfo);
    const dispatch = useDispatch();
 const {
     headerData
 } = props;
+const token = localStorage.getItem('token');
+    if(token) {
+        dispatch({type:UPDATE_LOGIN_INFO, payload : token})
+    } else {
+        dispatch({type:UPDATE_LOGIN_INFO, payload : ''})
+    }
+    const Updatedtoken = useSelector(state => state.token);
 const signInHandler = () => {
     console.log("signIn")
 }
@@ -20,7 +26,7 @@ const logOutHandler = () => {
     localStorage.removeItem("role");
     localStorage.removeItem("userId");
     localStorage.removeItem("username");
-    dispatch({type:UPDATE_LOGIN_INFO, payload : {}})
+    dispatch({type:UPDATE_LOGIN_INFO, payload : ''})
 }
 return (
     <>
@@ -39,8 +45,8 @@ return (
                 })}
             </ul>
         <section className="c-acticon-container">
-            {!loginInfo?.token && <a href="/login"><Button title="SignIn" className="c-btn c-primary" BtnClickHandler = {signInHandler}/></a>}
-            {loginInfo?.token && <a href="/login"><Button title="logOut" className="c-btn c-primary" BtnClickHandler = {logOutHandler}/></a>}
+            {!Updatedtoken && <a href="/login"><Button title="SignIn" className="c-btn c-primary" BtnClickHandler = {signInHandler}/></a>}
+            {Updatedtoken && <a href="/login"><Button title="logOut" className="c-btn c-primary" BtnClickHandler = {logOutHandler}/></a>}
             <a href="/register"><Button title="Register" className="c-btn c-secondary" BtnClickHandler = {registerHandler}/></a>
         </section>
     </header>
